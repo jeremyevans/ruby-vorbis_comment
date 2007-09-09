@@ -3,7 +3,7 @@ spec = Gem::Specification.new do |s|
   s.version = "1.0.0"
   s.author = "Jeremy Evans"
   s.email = "code@jeremyevans.net"
-  s.homepage = "http://rubyforge.org/projects/vorbis_comment/"
+  s.homepage = "http://rubyforge.org/projects/vorbiscomment/"
   s.platform = Gem::Platform::RUBY
   s.summary = "Vorbis Comment Reader/Writer Library"
   s.files = Dir["*"]
@@ -13,6 +13,6 @@ spec = Gem::Specification.new do |s|
   s.test_files = Dir["test/*"]
   s.has_rdoc = true
   s.rdoc_options = %w'--inline-source --line-numbers'
-  s.rubyforge_project = 'vorbis_comment'
+  s.rubyforge_project = 'vorbiscomment'
 end
 
