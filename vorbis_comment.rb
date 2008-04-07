@@ -38,10 +38,10 @@
 # One known bug is in the libvorbis library, in that it doesn't like files less
 # than 8K in size.
 #
-# The most current source code can be accessed via anonymous SVN at 
-# svn://code.jeremyevans.net/ruby-vorbis_comment/.  Note that the library isn't
-# modified on a regular basis, so it is unlikely to be different from the latest
-# release.
+# The most current source code can be accessed via github
+# (http://github.com/jeremyevans/ruby-vorbis_comment/tree/master).  Note that 
+# the library isn't modified on a regular basis, so it is unlikely to be
+# different from the latest release.
 #
 # The pure ruby part of this library is copyright Jeremy Evans and is released
 # under the MIT License.
