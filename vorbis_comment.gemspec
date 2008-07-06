@@ -9,11 +9,10 @@ spec = Gem::Specification.new do |s|
   s.files = Dir["*"]
   s.require_paths = ["."]
   s.extensions << 'extconf.rb'
-  s.autorequire = "vorbis_comment"
   s.test_files = Dir["test/*"]
   s.has_rdoc = true
   s.rdoc_options = %w'--inline-source --line-numbers'
   s.add_dependency('cicphash', [">= 1.0.0"])
   s.rubyforge_project = 'vorbiscomment'
+  s.homepage = 'http://vorbiscomment.rubyforge.org'
 end
-
