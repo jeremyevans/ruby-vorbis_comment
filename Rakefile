@@ -2,6 +2,8 @@ require 'rake'
 require 'rake/clean'
 require 'rake/rdoctask'
 
+CLEAN.include %w"rdoc vorbis_comment_ext.*o vcedit.o Makefile mkmf.log vorbis_comment-*.gem"
+
 Rake::RDocTask.new do |rdoc|
   rdoc.rdoc_dir = "rdoc"
   rdoc.options += ["--quiet", "--line-numbers", "--inline-source"]
@@ -20,4 +22,14 @@ end
 desc "Package ruby-vorbis_comment"
 task :package do
   sh %{gem build vorbis_comment.gemspec}
+end
+
+desc "Build extension"
+task :build => :clean do
+  sh %{ruby extconf.rb && make}
+end
+
+desc "Run tests"
+task :default do
+  sh %{ruby test/test_vorbis_comment.rb}
 end
