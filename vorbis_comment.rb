@@ -50,7 +50,7 @@
 # The C part of this library is copyright Jeremy Evans and Tilman Sauerbeck and
 # is licensed under the GNU LGPL.
 #
-# Copyright (c) 2007 Jeremy Evans
+# Copyright (c) 2007,2010 Jeremy Evans
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy 
 # of this software and associated documentation files (the "Software"), to deal
