@@ -41,6 +41,7 @@ class VorbisCommentTest < Test::Unit::TestCase
     assert_equal true, vc('blank.ogg').exists?
     # Corrupt tags are considered not to exist
     assert_equal false, vc('corrupt.ogg').exists?
+    assert_equal false, vc('empty_key.ogg').exists?
     # Files that aren't ogg files will be treated similarly
     assert_equal false, vc('test_vorbis_comment.rb').exists?
     # But nonexistant files raise an OpenError
@@ -51,6 +52,7 @@ class VorbisCommentTest < Test::Unit::TestCase
     assert_equal Hash[], vc('blank.ogg').fields
     assert_equal Hash['title'=>['Silence']], vc('title.ogg').fields
     assert_equal Hash[{"ARTIST"=>["Test Artist 1", "Test Artist 2"], "TrackNumber"=>["1"], "Album"=>["Test Album"], "Title"=>["Test Title"], "Date"=>["1999-12-31"], "comment"=>[""]}], vc('manyfields.ogg').fields
+    assert_raises(VorbisComment::InvalidDataError){vc('empty_key.ogg').fields}
     assert_raises(VorbisComment::InvalidDataError){vc('corrupt.ogg').fields}
     assert_raises(VorbisComment::OpenError){vc('nonexistant.ogg').fields}
   end
@@ -59,6 +61,7 @@ class VorbisCommentTest < Test::Unit::TestCase
     assert_equal Hash[], work_with_copy('blank.ogg'){|filename| VorbisComment.new(filename).remove!}
     assert_equal Hash[], work_with_copy('title.ogg'){|filename| VorbisComment.new(filename).remove!}
     assert_equal Hash[], work_with_copy('manyfields.ogg'){|filename| VorbisComment.new(filename).remove!}
+    assert_raises(VorbisComment::InvalidDataError){work_with_copy('empty_key.ogg'){|filename| VorbisComment.new(filename).remove!}}
     assert_raises(VorbisComment::InvalidDataError){work_with_copy('corrupt.ogg'){|filename| VorbisComment.new(filename).remove!}}
     assert_raises(VorbisComment::OpenError){VorbisComment.new('nonexistant.ogg').remove!}
   end
@@ -67,17 +70,19 @@ class VorbisCommentTest < Test::Unit::TestCase
     assert_equal "", vc('blank.ogg').pretty_print
     assert_equal "title: Silence", vc('title.ogg').pretty_print
     assert_equal "ARTIST: Test Artist 1, Test Artist 2\nAlbum: Test Album\nDate: 1999-12-31\nTitle: Test Title\nTrackNumber: 1\ncomment: ", vc('manyfields.ogg').pretty_print
+    assert_equal "CORRUPT TAG!", vc('empty_key.ogg').pretty_print
     assert_equal "CORRUPT TAG!", vc('corrupt.ogg').pretty_print
     assert_equal "CORRUPT TAG!", vc('test_vorbis_comment.rb').pretty_print
   end
   
   def test_update
     f = {'Blah'=>['Blah']}
+    assert_raises(VorbisComment::InvalidDataError){work_with_copy('empty_key.ogg'){|filename| VorbisComment.new(filename).update{|fields| fields.merge!(f)}}}
     assert_raises(VorbisComment::InvalidDataError){work_with_copy('corrupt.ogg'){|filename| VorbisComment.new(filename).update{|fields| fields.merge!(f)}}}
     assert_raises(VorbisComment::OpenError){VorbisComment.new('nonexistant.ogg').update{|fields| fields.merge!(f)}}
     
-    g = {'x'=>'y', 'y'=>:z, :z=>[:A], :zz=>[['A'], [[[:b]], 'c']]}
-    h = {'x'=>['y'], 'y'=>['z'], 'z'=>['A'], 'zz'=>['A', 'bc']}
+    g = {'x'=>'y', 'y'=>:z, :z=>[:A], :zz=>['A', :b, 'c']}
+    h = {'x'=>['y'], 'y'=>['z'], 'z'=>['A'], 'zz'=>['A', 'b', 'c']}
     
     %w'blank.ogg title.ogg manyfields.ogg'.each do |fname|
       work_with_copy(fname) do |filename|
@@ -116,11 +121,11 @@ class VorbisCommentTest < Test::Unit::TestCase
       v.send(:add_to_fields, 'A', 'b')
       assert_equal CICPHash['A'=>['b']], v.fields
       assert_equal [['A', 'b']], v.send(:normalize_fields)
-      v.send(:add_to_fields, :a, ['C'])
-      assert_equal CICPHash['A'=>['b',['C']]], v.fields
+      v.send(:add_to_fields, :a, 'C')
+      assert_equal CICPHash['A'=>['b','C']], v.fields
       assert_equal [['A', 'C'], ['A', 'b']], v.send(:normalize_fields)
       v.send(:add_to_fields, 12, 42)
-      assert_equal CICPHash['A'=>['b',['C']], 12=>[42]], v.fields
+      assert_equal CICPHash['A'=>['b','C'], 12=>[42]], v.fields
       assert_equal [['12', '42'], ['A', 'C'], ['A', 'b']], v.send(:normalize_fields)
       v.update{}
       assert_equal CICPHash['A'=>['C','b'], '12'=>['42']], VorbisComment.new(filename).fields

@@ -76,7 +76,7 @@ VALUE read_fields (VALUE self) {
         char *ptr, *content = vc->user_comments[i];
 
         ptr = strchr (content, '=');
-        if (!ptr || ptr == content) {
+        if (!ptr) {
             rb_funcall(fields, rb_intern("clear"), 0);
             vcedit_state_unref(state);
             rb_raise (eInvalidComment, "invalid comment - %s", content);
@@ -125,9 +125,9 @@ VALUE write_fields (VALUE self, VALUE comments) {
     vorbis_comment_init(vc);
 
     items = RARRAY(comments);
-    for (i = 0; i < items->len; i++) {
-        comment = RARRAY(items->ptr[i]);
-        vorbis_comment_add_tag(vc, StringValuePtr(comment->ptr[0]), StringValuePtr(comment->ptr[1]));
+    for (i = 0; i < RARRAY_LEN(items); i++) {
+        comment = RARRAY_PTR(items)[i];
+        vorbis_comment_add_tag(vc, StringValuePtr(RARRAY_PTR(comment)[0]), StringValuePtr(RARRAY_PTR(comment)[1]));
     }
     
     switch (vcedit_write (state)) {
