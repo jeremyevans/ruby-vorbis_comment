@@ -21,15 +21,15 @@ end
 
 desc "Package ruby-vorbis_comment"
 task :package do
-  sh %{gem build vorbis_comment.gemspec}
+  sh %{#{FileUtils::RUBY} -S gem build vorbis_comment.gemspec}
 end
 
 desc "Build extension"
 task :build => :clean do
-  sh %{ruby extconf.rb && make}
+  sh %{#{FileUtils::RUBY} extconf.rb && make}
 end
 
 desc "Run tests"
 task :default do
-  sh %{ruby test/test_vorbis_comment.rb}
+  sh %{#{FileUtils::RUBY} test/test_vorbis_comment.rb}
 end
