@@ -50,7 +50,7 @@
 # The C part of this library is copyright Jeremy Evans and Tilman Sauerbeck and
 # is licensed under the GNU LGPL.
 #
-# Copyright (c) 2007,2010 Jeremy Evans
+# Copyright (c) 2007,2010,2013 Jeremy Evans
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy 
 # of this software and associated documentation files (the "Software"), to deal
@@ -75,7 +75,7 @@ require 'cicphash'
 # Contains all of the Vorbis comment fields found in the filename/file given.
 class VorbisComment
   attr_reader :filename
-  BAD_KEY_RE = /[\x00-\x1f=\x7e-\xff]/
+  BAD_KEY_RE = /[\x00-\x1f=\x7e-\xff]/n
   
   # Set the filename to be used
   def initialize(filename)

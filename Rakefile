@@ -20,7 +20,7 @@ task :doc_rforge do
 end
 
 desc "Package ruby-vorbis_comment"
-task :package do
+task :package => :clean do
   sh %{#{FileUtils::RUBY} -S gem build vorbis_comment.gemspec}
 end
 
