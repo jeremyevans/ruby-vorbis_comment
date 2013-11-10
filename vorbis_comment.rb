@@ -34,10 +34,10 @@
 # To run the tests for the library, run test_vorbis_comment.rb.
 #
 # If you find any bugs, would like additional documentation, or want to submit a
-# patch, please use Rubyforge (http://rubyforge.org/projects/vorbis_comment/).
+# patch, please use GitHub (https://github.com/jeremyevans/ruby-vorbis_comment/issues).
 # One known bug is that it doesn't like files less than 8K in size.
 #
-# The RDoc for the project is available on http://vorbiscomment.rubyforge.org.
+# The RDoc for the project is available on http://ruby-vorbiscomment.jeremyevans.net
 #
 # The most current source code can be accessed via github
 # (http://github.com/jeremyevans/ruby-vorbis_comment/).  Note that 

@@ -1,22 +1,36 @@
 require 'rake'
 require 'rake/clean'
-require 'rake/rdoctask'
 
 CLEAN.include %w"rdoc vorbis_comment_ext.*o vcedit.o Makefile mkmf.log vorbis_comment-*.gem"
 
-Rake::RDocTask.new do |rdoc|
-  rdoc.rdoc_dir = "rdoc"
-  rdoc.options += ["--quiet", "--line-numbers", "--inline-source"]
-  rdoc.main = "vorbis_comment.rb"
-  rdoc.title = "ruby-vorbis_comment: Vorbis Comment Reader/Writer Library"
-  rdoc.rdoc_files.add ["LICENSE", "vorbis_comment.rb"]
+RDOC_OPTS = ["--line-numbers", "--inline-source", '--main', 'README']
+
+begin
+  gem 'rdoc', '= 3.12.2'
+  gem 'hanna-nouveau'
+  RDOC_OPTS.concat(['-f', 'hanna'])
+rescue Gem::LoadError
 end
 
-desc "Update docs and upload to rubyforge.org"
-task :doc_rforge => [:rdoc]
-task :doc_rforge do
-  sh %{chmod -R g+w rdoc/*}
-  sh %{scp -rp rdoc/* rubyforge.org:/var/www/gforge-projects/vorbiscomment}
+rdoc_task_class = begin
+  require "rdoc/task"
+  RDoc::Task
+rescue LoadError
+  begin
+    require "rake/rdoctask"
+    Rake::RDocTask
+  rescue LoadError, StandardError
+  end
+end
+
+if rdoc_task_class
+  rdoc_task_class.new do |rdoc|
+    rdoc.rdoc_dir = "rdoc"
+    rdoc.options += RDOC_OPTS
+    rdoc.main = "vorbis_comment.rb"
+    rdoc.title = "ruby-vorbis_comment: Vorbis Comment Reader/Writer Library"
+    rdoc.rdoc_files.add ["LICENSE", "vorbis_comment.rb"]
+  end
 end
 
 desc "Package ruby-vorbis_comment"
