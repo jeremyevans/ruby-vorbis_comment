@@ -6,7 +6,6 @@ CLEAN.include %w"rdoc vorbis_comment_ext.*o vcedit.o Makefile mkmf.log vorbis_co
 RDOC_OPTS = ["--line-numbers", "--inline-source", '--main', 'README']
 
 begin
-  gem 'rdoc', '= 3.12.2'
   gem 'hanna-nouveau'
   RDOC_OPTS.concat(['-f', 'hanna'])
 rescue Gem::LoadError
