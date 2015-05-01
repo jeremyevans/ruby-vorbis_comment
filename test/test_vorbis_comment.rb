@@ -2,7 +2,7 @@
 require 'rubygems'
 require 'vorbis_comment'
 require 'fileutils'
-require 'test/unit'
+require 'minitest/autorun'
 
 begin
   VorbisComment.new(File.join(File.dirname(__FILE__), 'lt8k.ogg')).fields
@@ -10,7 +10,7 @@ rescue VorbisComment::InvalidDataError
   puts('The linked version of libvorbis has problems with files < 8K in size')
 end
 
-class VorbisCommentTest < Test::Unit::TestCase
+class VorbisCommentTest < Minitest::Test
   def vc(filename)
     VorbisComment.new(File.join(File.dirname(__FILE__), filename))
   end
