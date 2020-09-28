@@ -18,7 +18,6 @@
  */
 
 #include <ruby.h>
-#include <st.h>
 #include <stdio.h>
 #include <stdbool.h>
 #include <errno.h>
