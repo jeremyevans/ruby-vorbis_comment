@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # This library implements a Vorbis Comment reader/writer.
-# If called from the command line, it prints out the contents of the APEv2 tag 
-# for the given filename arguments.
+# If called from the command line, it prints out the contents of the Vorbis
+# comments for the given filename arguments.
 #
 # ruby-vorbis_comment is a pure Ruby library for manipulating Vorbis comments.
 # It wraps libvorbis and libogg, so it should be completely standards
@@ -9,7 +9,7 @@
 # FLAC, and Speex files.
 #
 # The library includes a C extension, which may or may not build cleanly on all
-# architectures. It is developed and tested on OpenBSD i386 and amd64.  If it
+# architectures. It is developed and tested on OpenBSD amd64.  If it
 # doesn't work on your machine, please try to get it to work and send in a
 # patch.
 #
@@ -31,7 +31,8 @@
 #   # You need to update/modify the fields given, not reassign it
 #  a.remove! # clear the list of vorbis comments from the file
 #
-# To run the tests for the library, run test_vorbis_comment.rb.
+# To build the library, run <tt>rake build</tt>.  To run the tests for the library
+# after building, run <tt>rake</tt>.
 #
 # If you find any bugs, would like additional documentation, or want to submit a
 # patch, please use GitHub (https://github.com/jeremyevans/ruby-vorbis_comment/issues).
@@ -50,7 +51,7 @@
 # The C part of this library is copyright Jeremy Evans and Tilman Sauerbeck and
 # is licensed under the GNU LGPL.
 #
-# Copyright (c) 2007,2010,2013 Jeremy Evans
+# Copyright (c) 2007,2010,2013,2020 Jeremy Evans
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy 
 # of this software and associated documentation files (the "Software"), to deal
