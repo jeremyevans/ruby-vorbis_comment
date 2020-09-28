@@ -99,9 +99,9 @@ VALUE read_fields (VALUE self) {
 VALUE write_fields (VALUE self, VALUE comments) {
     vcedit_state *state;
     vorbis_comment *vc;
-    struct RArray *items, *comment;
-    VALUE filename;
+    VALUE filename, comment, key, value;
     int i, j;
+    long len;
 
     filename = rb_iv_get(self, "@filename");
     state = vcedit_state_new(StringValuePtr(filename));
@@ -123,10 +123,12 @@ VALUE write_fields (VALUE self, VALUE comments) {
     vorbis_comment_clear(vc);
     vorbis_comment_init(vc);
 
-    items = RARRAY(comments);
-    for (i = 0; i < RARRAY_LEN(items); i++) {
-        comment = RARRAY_PTR(items)[i];
-        vorbis_comment_add_tag(vc, StringValuePtr(RARRAY_PTR(comment)[0]), StringValuePtr(RARRAY_PTR(comment)[1]));
+    len = RARRAY_LEN(comments);
+    for (i = 0; i < len; i++) {
+        comment = rb_ary_entry(comments, i);
+        key = rb_ary_entry(comment, 0);
+        value = rb_ary_entry(comment, 1);
+        vorbis_comment_add_tag(vc, StringValuePtr(key), StringValuePtr(value));
     }
     
     switch (vcedit_write (state)) {
