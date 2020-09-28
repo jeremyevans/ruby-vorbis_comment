@@ -2,6 +2,7 @@
 require 'rubygems'
 require 'vorbis_comment'
 require 'fileutils'
+gem 'minitest'
 ENV['MT_NO_PLUGINS'] = '1' # Work around stupid autoloading of plugins
 require 'minitest/autorun'
 
