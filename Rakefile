@@ -11,25 +11,13 @@ begin
 rescue Gem::LoadError
 end
 
-rdoc_task_class = begin
-  require "rdoc/task"
-  RDoc::Task
-rescue LoadError
-  begin
-    require "rake/rdoctask"
-    Rake::RDocTask
-  rescue LoadError, StandardError
-  end
-end
-
-if rdoc_task_class
-  rdoc_task_class.new do |rdoc|
-    rdoc.rdoc_dir = "rdoc"
-    rdoc.options += RDOC_OPTS
-    rdoc.main = "vorbis_comment.rb"
-    rdoc.title = "ruby-vorbis_comment: Vorbis Comment Reader/Writer Library"
-    rdoc.rdoc_files.add ["LICENSE", "vorbis_comment.rb"]
-  end
+require "rdoc/task"
+RDoc::Task.new do |rdoc|
+  rdoc.rdoc_dir = "rdoc"
+  rdoc.options += RDOC_OPTS
+  rdoc.main = "vorbis_comment.rb"
+  rdoc.title = "ruby-vorbis_comment: Vorbis Comment Reader/Writer Library"
+  rdoc.rdoc_files.add ["LICENSE", "vorbis_comment.rb"]
 end
 
 desc "Package ruby-vorbis_comment"
