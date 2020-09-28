@@ -1,6 +1,6 @@
 spec = Gem::Specification.new do |s| 
   s.name = "vorbis_comment"
-  s.version = "1.0.2"
+  s.version = "1.0.3"
   s.author = "Jeremy Evans"
   s.email = "code@jeremyevans.net"
   s.homepage = "http://ruby-vorbiscomment.jeremyevans.net"
@@ -11,4 +11,5 @@ spec = Gem::Specification.new do |s|
   s.extensions << 'extconf.rb'
   s.rdoc_options = %w'--inline-source --line-numbers'
   s.add_dependency('cicphash', [">= 1.0.0"])
+  s.licenses = ["MIT", "LGPL-2.0-or-later"]
 end
