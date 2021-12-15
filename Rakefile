@@ -32,5 +32,5 @@ end
 
 desc "Run tests"
 task :default do
-  sh %{#{FileUtils::RUBY} -I. test/test_vorbis_comment.rb}
+  sh %{#{FileUtils::RUBY} #{"-w" if RUBY_VERSION >= '3'} -I. test/test_vorbis_comment.rb}
 end
