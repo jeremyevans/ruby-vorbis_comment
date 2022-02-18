@@ -30,7 +30,10 @@ task :build => :clean do
   sh %{#{FileUtils::RUBY} extconf.rb && make}
 end
 
-desc "Run tests"
-task :default do
+desc "Run tests without building"
+task :test do
   sh %{#{FileUtils::RUBY} #{"-w" if RUBY_VERSION >= '3'} -I. test/test_vorbis_comment.rb}
 end
+
+desc "Run tests"
+task :default => [:build, :test]
