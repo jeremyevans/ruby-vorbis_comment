@@ -100,7 +100,7 @@ VALUE write_fields (VALUE self, VALUE comments) {
     vcedit_state *state;
     vorbis_comment *vc;
     VALUE filename, comment, key, value;
-    int i, j;
+    int i;
     long len;
 
     filename = rb_iv_get(self, "@filename");
