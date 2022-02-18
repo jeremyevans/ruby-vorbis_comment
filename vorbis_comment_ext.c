@@ -45,7 +45,7 @@ VALUE read_fields (VALUE self) {
     vorbis_comment *vc;
     VALUE fields, filename;
     VALUE k, v;
-    int add_to_fields;
+    ID add_to_fields;
     int i;
 
     filename = rb_iv_get(self, "@filename");
