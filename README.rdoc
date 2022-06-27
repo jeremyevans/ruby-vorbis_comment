@@ -1,0 +1,52 @@
+= ruby-vorbis_comment
+
+ruby-vorbis_comment is a Ruby library for manipulating Vorbis comments.
+It wraps libvorbis and libogg, so it should be completely standards
+compatible. Vorbis comment is the standard tagging format for Ogg Vorbis,
+FLAC, and Speex files.
+
+This library tries to be API compatible with ruby-apetag, a library for
+reading and writing APE tags, the standard tagging format for Musepack and
+Monkey's Audio, which can also be used with MP3s as an alternative to ID3v2.
+
+= Usage
+
+   require 'vorbis_comment'
+
+   vc = VorbisComment.new('file.ogg')
+
+   # Whether file already has an vorbis comment
+   vc.exists?
+
+   # A CICPHash of fields, keys are strings, values are lists of strings
+   vc.fields
+
+   # String suitable for pretty printing
+   vc.pretty_print
+
+  # Update the tag with the added/changed/deleted fields
+   vc.update{|fields| fields['Artist']='Test Artist'; fields.delete('Year')}
+
+   # Clear the list of vorbis comments from the file
+   vc.remove!
+
+= Building
+
+To build the library, run <tt>rake build</tt>.  To run the tests for the library
+after building, run <tt>rake</tt>.
+
+= Support
+
+If you find any bugs, would like additional documentation, or want to submit a
+patch, please use GitHub (https://github.com/jeremyevans/ruby-vorbis_comment/issues).
+One known bug is that it doesn't like files less than 8K in size.
+
+The RDoc for the project is available on http://ruby-vorbiscomment.jeremyevans.net
+
+The most current source code can be accessed via github
+(http://github.com/jeremyevans/ruby-vorbis_comment/).  Note that 
+the library isn't modified on a regular basis, so it is unlikely to be
+different from the latest release.
+
+If called from the command line, `vorbis_comment.rb` prints out the contents of the
+Vorbis comments for the given filename arguments.
