@@ -1,6 +1,7 @@
-rdoc
-vorbis_comment_ext.*o
-vcedit.o
-Makefile
-mkmf.log
-vorbis_comment-*.gem
+/rdoc
+/vorbis_comment_ext.*o
+/vcedit.o
+/Makefile
+/mkmf.log
+/vorbis_comment-*.gem
+/coverage

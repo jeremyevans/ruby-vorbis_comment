@@ -1,7 +1,18 @@
 #!/usr/bin/env ruby
-require 'rubygems'
-require 'vorbis_comment'
+
+if ENV.delete('COVERAGE')
+  require 'simplecov'
+
+  SimpleCov.start do
+    enable_coverage :branch
+    add_filter "/test/"
+    add_group('Missing'){|src| src.covered_percent < 100}
+    add_group('Covered'){|src| src.covered_percent == 100}
+  end
+end
+
 require 'fileutils'
+require_relative '../vorbis_comment'
 gem 'minitest'
 ENV['MT_NO_PLUGINS'] = '1' # Work around stupid autoloading of plugins
 require 'minitest/autorun'
@@ -75,6 +86,7 @@ class VorbisCommentTest < Minitest::Test
     assert_equal "CORRUPT TAG!", vc('empty_key.ogg').pretty_print
     assert_equal "CORRUPT TAG!", vc('corrupt.ogg').pretty_print
     assert_equal "CORRUPT TAG!", vc('test_vorbis_comment.rb').pretty_print
+    assert_equal "FILE NOT FOUND!", vc('nonexistant.ogg').pretty_print
   end
   
   def test_update

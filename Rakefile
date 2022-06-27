@@ -1,7 +1,7 @@
 require 'rake/clean'
 require "rdoc/task"
 
-CLEAN.include %w"rdoc vorbis_comment_ext.*o vcedit.o Makefile mkmf.log vorbis_comment-*.gem"
+CLEAN.include %w"rdoc vorbis_comment_ext.*o vcedit.o Makefile mkmf.log vorbis_comment-*.gem coverage"
 
 RDoc::Task.new do |rdoc|
   rdoc.rdoc_dir = "rdoc"
@@ -28,8 +28,14 @@ end
 
 desc "Run tests without building"
 task :test do
-  sh %{#{FileUtils::RUBY} #{"-w" if RUBY_VERSION >= '3'} -I. test/test_vorbis_comment.rb}
+  sh %{#{FileUtils::RUBY} #{"-w" if RUBY_VERSION >= '3'} test/test_vorbis_comment.rb}
 end
 
 desc "Run tests"
 task :default => [:build, :test]
+
+desc "Run tests with coverage"
+task :test_cov => [:build] do
+  ENV['COVERAGE'] = '1'
+  sh %{#{FileUtils::RUBY} test/test_vorbis_comment.rb}
+end

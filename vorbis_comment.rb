@@ -84,8 +84,9 @@ class VorbisComment
     end
 end
 
-require 'vorbis_comment_ext' # define read_fields and write_fields
+require_relative 'vorbis_comment_ext' # define read_fields and write_fields
 
+# :nocov:
 # If called directly from the command line, treat all arguments as filenames
 # and pretty print the vorbis comment fields for each filename.
 if __FILE__ == $0
@@ -93,3 +94,4 @@ if __FILE__ == $0
     puts filename, '-'*filename.length, VorbisComment.new(filename).pretty_print, ''
   end
 end
+# :nocov:
