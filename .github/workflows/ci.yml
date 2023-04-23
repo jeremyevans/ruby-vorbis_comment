@@ -21,7 +21,7 @@ jobs:
       BUNDLE_GEMFILE: .ci.gemfile
     steps:
     - run: sudo apt-get -yqq install libvorbis-dev
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - uses: ruby/setup-ruby@v1
       with:
         ruby-version: ${{ matrix.ruby }}
