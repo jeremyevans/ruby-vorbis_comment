@@ -8,7 +8,7 @@ RDoc::Task.new do |rdoc|
   rdoc.options += ["--quiet", "--line-numbers", "--inline-source", '--title', 'ruby-vorbis_comment: Vorbis Comment Reader/Writer Library', '--main', 'README.rdoc']
 
   begin
-    gem 'hanna-nouveau'
+    gem 'hanna'
     rdoc.options += ['-f', 'hanna']
   rescue Gem::LoadError
   end
