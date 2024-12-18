@@ -28,7 +28,7 @@ end
 
 desc "Run tests without building"
 task :test do
-  sh %{#{FileUtils::RUBY} #{"-w" if RUBY_VERSION >= '3'} test/test_vorbis_comment.rb}
+  sh %{#{FileUtils::RUBY} #{"-w" if RUBY_VERSION >= '3'} #{'-W:strict_unused_block' if RUBY_VERSION >= '3.4'} test/test_vorbis_comment.rb}
 end
 
 desc "Run tests"
